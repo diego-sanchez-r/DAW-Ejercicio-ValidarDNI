@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="form">
+        <input type="text" id="dni" name="dni" placeholder="Introduzca su DNI" 
+        pattern="[0-9]{8}[-]{1}[A-Z]{1}" title="Debe poner 8 números un guión y una letra mayuscula"/>
+        <input type="submit" value="Enviar" />
+    </form>
+    <h3 id="respuesta"></h3>
+    <script>
+        let formulario = document.getElementById('form');
+        let dni = document.getElementById("dni");
+        let respuesta = document.getElementById("respuesta");
+
+        formulario.onsubmit = function() {
+            fetch(`http://localhost:3000/validaDni?dni=${dni.value}`)
+            .then(response => response.json())
+            .then(data => respuesta.textContent = data["respuesta"]);
+            return false;
+        };
+    </script>
+</body>
+</html>
